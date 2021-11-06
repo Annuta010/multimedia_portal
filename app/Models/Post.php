@@ -13,4 +13,9 @@ class Post extends Model
     {
         return $this->belongsTo(Blog::class);
     }
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

@@ -40,6 +40,7 @@ class CreateBlogRequest extends FormRequest
 
         if($this->isMethod('post')) {
             $rules['slug'] .= '|unique:App\Models\Blog';
+            $rules['title'] .= '|unique:App\Models\Blog';
         };
         
         return $rules;

@@ -5,12 +5,23 @@ namespace App\Http\Controllers\Api\v1;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Post,};
+use App\Http\Resources\{PostResource, BlogResource};
 
 class PostController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth')->except(['index', 'show']);
+    }
+
     public function index()
     {
-        return Post::with('blog')->get()->sortByDesc('created_at')->values();
+        return PostResource::collection(
+            Post::with('blog')
+            ->get()
+            ->sortByDesc('created_at')
+            ->values()
+        );
     }
 
     public function store(
@@ -24,7 +35,7 @@ class PostController extends Controller
     public function show($post)
     {
         //Blog::firstWhere('slug', SlugFormatter::concatWithUserId($blog, '1'))
-        return Post::with(['blog'])->firstWhere('slug', $post);
+        return new PostResource(Post::with(['blog'])->firstWhere('slug', $post));
     }
 
     public function update(
@@ -36,11 +47,8 @@ class PostController extends Controller
         return true;
     }
 
-    public function destroy(
-        // Blog $blog
-    )
+    public function destroy(Post $post)
     {
-        // return $blog->delete();
-        return true;
+        return $post->delete();
     }
 }
