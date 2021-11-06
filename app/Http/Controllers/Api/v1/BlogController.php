@@ -41,10 +41,10 @@ class BlogController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Blog $blog)
+    public function show($blog)
     {
         //Blog::firstWhere('slug', SlugFormatter::concatWithUserId($blog, '1'))
-        return $blog;
+        return Blog::with(['user', 'posts'])->firstWhere('slug', $blog);
     }
 
     /**
