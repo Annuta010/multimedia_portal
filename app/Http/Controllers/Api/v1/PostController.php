@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Post,};
 use App\Http\Resources\{PostResource, BlogResource};
+use App\Http\Requests\{CreatePostRequest,};
 
 class PostController extends Controller
 {
@@ -24,12 +25,11 @@ class PostController extends Controller
         );
     }
 
-    public function store(
-        // CreatePostRequest $request
-    )
+    public function store(CreatePostRequest $request)
     {
-        return true;
-        // Blog::create($request->validated());
+        return new PostResource(
+            Post::create($request->validated())
+        );
     }
 
     public function show($post)
@@ -38,13 +38,10 @@ class PostController extends Controller
         return new PostResource(Post::with(['blog'])->firstWhere('slug', $post));
     }
 
-    public function update(
-        // CreateBlogRequest $request, Blog $blog
-    )
+    public function update(CreatePostRequest $request, Post $post)
     {
-        // $blog->update($request->validated());
-        // return $blog;
-        return true;
+        $post->update($request->validated());
+        return new PostResource($post);
     }
 
     public function destroy(Post $post)

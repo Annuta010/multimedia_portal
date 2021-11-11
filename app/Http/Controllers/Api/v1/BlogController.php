@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\{Blog,};
 use App\Http\Requests\{CreateBlogRequest,};
+use App\Http\Resources\{PostResource, BlogResource};
 use App\Services\SlugFormatter;
 
 class BlogController extends Controller
@@ -21,7 +22,7 @@ class BlogController extends Controller
      */
     public function index()
     {
-        return Blog::with('user')->get();
+        return BlogResource::collection(Blog::with('user')->get());
     }
 
     /**
@@ -32,7 +33,7 @@ class BlogController extends Controller
      */
     public function store(CreateBlogRequest $request)
     {
-        return Blog::create($request->validated());
+        return new BlogResource(Blog::create($request->validated()));
     }
 
     /**
@@ -44,7 +45,7 @@ class BlogController extends Controller
     public function show($blog)
     {
         //Blog::firstWhere('slug', SlugFormatter::concatWithUserId($blog, '1'))
-        return Blog::with(['user', 'posts'])->firstWhere('slug', $blog);
+        return new BlogResource(Blog::with(['user', 'posts'])->firstWhere('slug', $blog));
     }
 
     /**
@@ -57,7 +58,7 @@ class BlogController extends Controller
     public function update(CreateBlogRequest $request, Blog $blog)
     {
         $blog->update($request->validated());
-        return $blog;
+        return new BlogResource($blog);
     }
 
     /**
