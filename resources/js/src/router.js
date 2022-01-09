@@ -1,25 +1,32 @@
 
 
+import VueRouter from 'vue-router';
 import Blog from './views/pages/blog/blog-index.vue'
+import Posts from './views/pages/posts/posts-index.vue'
+import Home from './views/pages/home.vue'
 
-const _router = {
+const router = new VueRouter({
     mode: 'history',
     routes: [
         {
             path: '/',
             name: 'home',
             title: 'Главная',
-            component: Blog
+            component: Home
         },
         {
             path: '/blogs',
             name: 'blogs.index',
             title: 'Блог',
             component: Blog
-        }
+        },
+        {
+            path: '/posts',
+            name: 'posts.index',
+            title: 'Блог',
+            component: Posts
+        },
     ]
-}
+})
 
-export default {
-    _router
-}
+export default router

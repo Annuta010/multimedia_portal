@@ -2,7 +2,7 @@
 <main>
     <div class='container'>
         <h1>{{pageTitle}}</h1>
-        <list :blogs="blogs"></list>
+        <list :posts="posts"></list>
     </div>
 </main>
 
@@ -13,19 +13,21 @@ import list from '../../../components/pages/blog/list.vue';
 export default {
     data() {
         return {
-            blogs: [],
-            pageTitle: "Блог",
+            posts: [],
+            pageTitle: "Посты",
         }
     },
     mounted() {
-        this.getBlogs();
+        this.getPosts();
     },
     methods: {
-        getBlogs() {
-            axios.get('/api/v1/blogs')
+        getPosts() {
+            axios.get('/api/v1/posts')
             .then(response => {
-                this.blogs = response.data
+                this.posts = response.data;
+                console.log(response)
             })
+            
         }
     },
     components: {

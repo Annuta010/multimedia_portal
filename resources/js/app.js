@@ -6,16 +6,15 @@
 
 require('./bootstrap');
 
-window.Vue = require('vue').default;
-import Vue from 'vue';
+// window.Vue = require('vue').default;
 import VueRouter from 'vue-router';
-import _router from './src/router.js'
+import Vue from 'vue';
+import router from './src/router.js'
 
 
 import App from './src/views/layouts/app.vue'
-import Nav from './src/components/common/menu/v-nav.vue'
+
 Vue.use(VueRouter)
-const router = new VueRouter(_router)
 
 /**
  * The following block of code may be used to automatically register your
@@ -28,10 +27,10 @@ const router = new VueRouter(_router)
 // const files = require.context('./', true, /\.vue$/i)
 // files.keys().map(key => Vue.component(key.split('/').pop().split('.')[0], files(key).default))
 
-Vue.component('app', require('./src/views/layouts/app.vue').default)
-Vue.component('v-nav', require('./src/components/common/menu/v-nav.vue').default)
+// Vue.component('app', require('./src/views/layouts/app.vue').default)
+// Vue.component('v-nav', require('./src/components/common/menu/v-nav.vue').default)
 // Vue.component('home', require('./components/home.vue').default)
-Vue.component('blog-index', require('./src/views/pages/blog/blog-index.vue').default)
+// Vue.component('blog-index', require('./src/views/pages/blog/blog-index.vue').default)
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

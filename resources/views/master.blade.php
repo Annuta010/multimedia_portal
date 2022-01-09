@@ -8,7 +8,6 @@
 </head>
 <body>
     <div id="app">
-        <v-nav></v-nav>
         <app></app>
     </div>
     <script src="{{mix('js/app.js')}}"></script>
